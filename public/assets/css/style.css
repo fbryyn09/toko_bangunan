@@ -1,0 +1,2158 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f5f5;
+    color: #111;
+}
+
+
+/* ================================
+   LAYOUT
+================================ */
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+/* ================================
+   SIDEBAR
+================================ */
+.sidebar {
+    width: 215px;
+    min-height: 100vh;
+    background: #eeeece;
+    padding: 35px 18px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+.sidebar-logo-wrapper {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 55px;
+}
+.sidebar-logo {
+    width: 135px;
+    height: auto;
+    object-fit: contain;
+}
+/* MENU */
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    min-height: 38px;
+    padding: 8px 12px;
+    color: #111;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 7px;
+    transition: 0.2s;
+}
+.sidebar-menu a:hover {
+    background: #ffffb0;
+}
+.sidebar-menu a.active {
+    background: #ffffa8;
+    font-weight: 600;
+}
+.menu-icon {
+    width: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+/* ================================
+   CONTENT
+================================ */
+.content {
+    width: calc(100% - 215px);
+    margin-left: 215px;
+    padding: 20px 25px;
+    min-height: 100vh;
+}
+/* ================================
+   TOPBAR
+================================ */
+.topbar {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+/* SEARCH */
+.search-box {
+    width: 52%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #777;
+    border-radius: 15px;
+    background: white;
+    padding: 0 12px;
+    gap: 7px;
+}
+.search-icon {
+    font-size: 13px;
+}
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 11px;
+    background: transparent;
+}
+/* USER */
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: white;
+    border: 1px solid #777;
+    border-radius: 7px;
+    padding: 3px 8px;
+    font-size: 10px;
+}
+.user-box img {
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+.user-name {
+    font-weight: bold;
+}
+.user-role {
+    font-size: 8px;
+    color: #777;
+}
+/* ================================
+   HERO
+================================ */
+.hero {
+    width: 100%;
+    height: 165px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    color: white;
+}
+.hero-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+    object-position: center 40%;
+    z-index: 1;
+}
+.hero-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 2;
+}
+.hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 22px;
+}
+.hero-content h1 {
+    font-size: 24px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+.hero-content p {
+    font-size: 10px;
+    line-height: 1.6;
+    max-width: 600px;
+}
+/* ================================
+   SECTION TITLE
+================================ */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 13px;
+    margin-bottom: 9px;
+}
+.section-header h2 {
+    font-size: 15px;
+}
+.section-header a {
+    font-size: 10px;
+    color: #777;
+    text-decoration: none;
+}
+.section-header a:hover {
+    text-decoration: underline;
+}
+/* ================================
+   CATEGORY
+================================ */
+.category-list {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+}
+.category-card {
+    height: 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #111;
+    background: #eeeeee;
+    border: 1px solid #888;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+.category-card:hover {
+    transform: translateY(-2px);
+}
+.category-card img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+.category-name {
+    font-size: 10px;
+}
+/* KATEGORI LAINNYA */
+.other-category {
+    font-size: 25px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+/* ================================
+   PRODUCT
+================================ */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+.product-card {
+    background: white;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 8px;
+    transition: 0.2s;
+}
+.product-card:hover {
+    transform: translateY(-2px);
+}
+.product-image {
+    width: 100%;
+    height: 105px;
+    object-fit: contain;
+    display: block;
+}
+.product-name {
+    font-size: 10px;
+    margin-top: 5px;
+    line-height: 1.3;
+}
+.product-price {
+    font-size: 10px;
+    font-weight: bold;
+    margin-top: 2px;
+}
+.product-stock {
+    display: inline-block;
+    margin-top: 3px;
+    padding: 2px 5px;
+    background: #c9ffc9;
+    color: #158015;
+    border-radius: 4px;
+    font-size: 8px;
+}
+.contact-admin {
+    display: block;
+    margin-top: 5px;
+    padding: 5px;
+    text-align: center;
+    background: #ffffa8;
+    color: #111;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 8px;
+}
+.contact-admin:hover {
+    background: #fff36b;
+}
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 1000px) {
+    .category-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 700px) {
+    .sidebar {
+        width: 170px;
+    }
+    .content {
+        width: calc(100% - 170px);
+        margin-left: 170px;
+    }
+    .search-box {
+        width: 60%;
+    }
+}
+/* ================================
+   GAMBAR PRODUK
+================================ */
+.product-image {
+    width: 100%;
+    height: 115px;
+    background: #f5f5f5;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 7px;
+}
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+/* =========================
+   DETAIL PRODUK
+========================= */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 8px 0 16px;
+    font-size: 11px;
+    color: #777;
+}
+.breadcrumb a {
+    color: #555;
+    text-decoration: none;
+}
+.breadcrumb b {
+    color: #222;
+}
+/* DETAIL PRODUK */
+.detail-product {
+    background: #fff;
+    border-radius: 8px;
+    padding: 15px 20px 25px;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 28px;
+    max-width: 900px;
+}
+/* FOTO UTAMA */
+.detail-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.main-product-image {
+    width: 135px;
+    height: 120px;
+    background: #eadcdc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.main-product-image img {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+/* THUMBNAIL */
+.product-thumbnails {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+.thumbnail {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #f1a5a5;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    overflow: hidden;
+}
+.thumbnail.active {
+    border: 2px solid #f18c8c;
+}
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+/* INFORMASI */
+.detail-info h1 {
+    font-size: 17px;
+    margin-bottom: 3px;
+}
+.detail-info h2 {
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+.detail-status {
+    display: inline-block;
+    background: #dff7df;
+    color: #159447;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 9px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 10px;
+    font-size: 9px;
+}
+.detail-item span {
+    color: #888;
+}
+.detail-item strong {
+    font-size: 10px;
+}
+/* DESKRIPSI */
+.detail-description {
+    margin-bottom: 12px;
+}
+.detail-description h3 {
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+.detail-description p {
+    font-size: 9px;
+    line-height: 1.5;
+    color: #777;
+    max-width: 480px;
+}
+/* INFO KECIL */
+.product-info-small {
+    display: flex;
+    gap: 35px;
+    margin-bottom: 12px;
+}
+.product-info-small div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+}
+.product-info-small span {
+    color: #888;
+}
+.product-info-small strong {
+    color: #333;
+}
+/* BUTTON ADMIN */
+.detail-admin-button {
+    display: block;
+    width: 190px;
+    background: #f8bc45;
+    color: #222;
+    text-align: center;
+    text-decoration: none;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: bold;
+}
+.detail-admin-button:hover {
+    background: #f5ad25;
+}
+/* =========================
+   PRODUK LAINNYA
+========================= */
+.other-products {
+    background: #f5f5f5;
+    margin-top: 18px;
+    padding: 15px 20px 20px;
+    border-radius: 8px;
+    max-width: 900px;
+}
+.other-products-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.other-products-header h2 {
+    font-size: 15px;
+}
+.slider-button {
+    display: flex;
+    gap: 5px;
+}
+.slider-button button {
+    width: 22px;
+    height: 22px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+}
+/* GRID */
+.other-product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+/* CARD */
+.other-product-card {
+    background: #fff;
+    padding: 8px;
+    text-decoration: none;
+    color: #222;
+    border-radius: 3px;
+}
+.other-image {
+    width: 100%;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+.other-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.other-product-card h3 {
+    font-size: 9px;
+    margin-bottom: 3px;
+}
+.other-product-card strong {
+    display: block;
+    font-size: 9px;
+    margin-bottom: 3px;
+}
+.other-stock {
+    color: #159447;
+    background: #e0f7e0;
+    display: inline-block;
+    padding: 2px 5px;
+    border-radius: 8px;
+    font-size: 7px;
+    font-weight: bold;
+}
+/* =========================
+   HALAMAN KATEGORI
+========================= */
+.category-heading {
+    margin: 15px 0 20px;
+}
+.category-heading h1 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.category-heading p {
+    font-size: 11px;
+    color: #777;
+}
+/* GRID KATEGORI */
+.category-page-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 950px;
+}
+/* CARD KATEGORI */
+.category-page-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #222;
+    border: 1px solid #eee;
+    transition: 0.2s;
+}
+.category-page-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+/* GAMBAR */
+.category-page-image {
+    width: 100%;
+    height: 125px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.category-page-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+/* INFO */
+.category-page-info {
+    padding: 12px;
+}
+.category-page-info h3 {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+.category-page-info p {
+    font-size: 9px;
+    line-height: 1.5;
+    color: #777;
+    margin-bottom: 10px;
+}
+.category-page-info span {
+    font-size: 9px;
+    color: #d79a16;
+    font-weight: bold;
+}
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .category-page-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .category-page-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* =========================
+   KATEGORI PRODUK
+========================= */
+.category-product-heading {
+    margin: 15px 0 15px;
+}
+.category-product-heading h1 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.category-product-heading p {
+    font-size: 11px;
+    color: #777;
+}
+/* FILTER */
+.category-filter {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+.category-filter button {
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 9px;
+    cursor: pointer;
+}
+.category-filter .filter-active {
+    background: #ffffa8;
+    border-color: #e4df70;
+    font-weight: bold;
+}
+/* GRID PRODUK */
+.category-product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    max-width: 950px;
+}
+/* CARD */
+.category-product-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #222;
+    border: 1px solid #eee;
+    transition: 0.2s;
+}
+.category-product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+}
+/* GAMBAR */
+.category-product-image {
+    width: 100%;
+    height: 125px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.category-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+/* INFO */
+.category-product-info {
+    padding: 10px;
+}
+.category-product-info h3 {
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+.category-product-info strong {
+    display: block;
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+.category-stock {
+    display: inline-block;
+    background: #def6df;
+    color: #159447;
+    padding: 3px 6px;
+    border-radius: 10px;
+    font-size: 7px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+/* BUTTON */
+.category-admin-button {
+    width: 100%;
+    background: #f8bc45;
+    text-align: center;
+    padding: 6px 4px;
+    border-radius: 5px;
+    font-size: 8px;
+    font-weight: bold;
+}
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .category-product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .category-product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* =========================
+   HALAMAN PROMO
+========================= */
+.promo-heading {
+    margin: 15px 0 18px;
+}
+.promo-heading h1 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.promo-heading p {
+    font-size: 11px;
+    color: #777;
+}
+/* BANNER */
+.promo-banner {
+    width: 100%;
+    max-width: 950px;
+    min-height: 150px;
+    background: #fff3c9;
+    border-radius: 12px;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    margin-bottom: 22px;
+}
+.promo-banner-text {
+    max-width: 500px;
+}
+.promo-label {
+    display: inline-block;
+    background: #f4b52f;
+    color: #222;
+    padding: 4px 9px;
+    border-radius: 10px;
+    font-size: 8px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+.promo-banner h2 {
+    font-size: 22px;
+    line-height: 1.25;
+    margin-bottom: 7px;
+}
+.promo-banner p {
+    font-size: 10px;
+    color: #777;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+.promo-banner a {
+    display: inline-block;
+    background: #222;
+    color: #fff;
+    text-decoration: none;
+    padding: 7px 13px;
+    border-radius: 5px;
+    font-size: 9px;
+    font-weight: bold;
+}
+.promo-banner-icon {
+    font-size: 70px;
+    margin-right: 40px;
+}
+/* JUDUL PRODUK */
+.promo-title-row {
+    max-width: 950px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.promo-title-row h2 {
+    font-size: 15px;
+}
+.promo-title-row span {
+    font-size: 9px;
+    color: #888;
+}
+/* GRID */
+.promo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    max-width: 950px;
+}
+/* CARD */
+.promo-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #222;
+    border: 1px solid #eee;
+    transition: .2s;
+}
+.promo-card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
+}
+/* FOTO */
+.promo-card-image {
+    width: 100%;
+    height: 130px;
+    background: #f5f5f5;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.promo-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+/* DISKON */
+.discount-badge {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    background: #ef6b55;
+    color: #fff;
+    padding: 4px 7px;
+    border-radius: 4px;
+    font-size: 8px;
+    font-weight: bold;
+    z-index: 2;
+}
+/* INFO */
+.promo-card-info {
+    padding: 10px;
+}
+.promo-card-info small {
+    display: block;
+    color: #999;
+    font-size: 8px;
+    margin-bottom: 4px;
+}
+.promo-card-info h3 {
+    font-size: 11px;
+    margin-bottom: 7px;
+}
+/* HARGA */
+.promo-price {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 7px;
+}
+.promo-price strong {
+    font-size: 11px;
+}
+.promo-price del {
+    color: #999;
+    font-size: 8px;
+}
+/* STOK */
+.promo-stock {
+    display: inline-block;
+    background: #def6df;
+    color: #159447;
+    padding: 3px 6px;
+    border-radius: 10px;
+    font-size: 7px;
+    font-weight: bold;
+}
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .promo-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .promo-banner-icon {
+        margin-right: 10px;
+    }
+}
+@media (max-width: 600px) {
+    .promo-grid {
+        grid-template-columns: 1fr;
+    }
+    .promo-banner-icon {
+        display: none;
+    }
+}
+/* =========================
+   TENTANG TOKO
+========================= */
+.about-heading {
+    margin: 15px 0 18px;
+}
+.about-heading h1 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.about-heading p {
+    font-size: 11px;
+    color: #777;
+}
+/* ABOUT CARD */
+.about-card {
+    max-width: 950px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 42% 58%;
+    margin-bottom: 22px;
+}
+/* GAMBAR TOKO */
+.about-image {
+    height: 230px;
+    overflow: hidden;
+}
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* TEXT */
+.about-text {
+    padding: 25px 28px;
+}
+.about-logo img {
+    width: 65px;
+    height: auto;
+    margin-bottom: 7px;
+}
+.about-text h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.about-text p {
+    font-size: 10px;
+    line-height: 1.7;
+    color: #777;
+    margin-bottom: 8px;
+}
+/* =========================
+   KEUNGGULAN
+========================= */
+.about-features {
+    max-width: 950px;
+    margin-bottom: 22px;
+}
+.about-features h2 {
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+.about-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+.about-feature-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 15px 10px;
+    text-align: center;
+    border: 1px solid #eee;
+}
+.feature-icon {
+    font-size: 25px;
+    margin-bottom: 7px;
+}
+.about-feature-card h3 {
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+.about-feature-card p {
+    font-size: 8px;
+    color: #777;
+    line-height: 1.5;
+}
+/* =========================
+   INFORMASI TOKO
+========================= */
+.store-information {
+    max-width: 950px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 20px;
+}
+.store-information h2 {
+    font-size: 15px;
+    margin-bottom: 13px;
+}
+.store-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+.store-info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fafafa;
+    padding: 10px;
+    border-radius: 7px;
+}
+.store-info-item > span {
+    font-size: 20px;
+}
+.store-info-item div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.store-info-item small {
+    font-size: 8px;
+    color: #999;
+}
+.store-info-item strong {
+    font-size: 9px;
+    font-weight: 600;
+}
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .about-card {
+        grid-template-columns: 1fr;
+    }
+    .about-image {
+        height: 200px;
+    }
+    .about-feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .store-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 600px) {
+    .about-feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ========================
+   PROFIL
+========================= */
+.profile-heading {
+    margin: 15px 0 18px;
+}
+.profile-heading h1 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.profile-heading p {
+    font-size: 11px;
+    color: #777;
+}
+/* CONTAINER */
+.profile-container {
+    max-width: 950px;
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+/* =========================
+   PROFILE CARD
+========================= */
+.profile-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px 15px;
+    text-align: center;
+    border: 1px solid #eee;
+}
+.profile-avatar {
+    width: 85px;
+    height: 85px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #eeeece;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.profile-card h2 {
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+.profile-role {
+    font-size: 9px;
+    color: #888;
+}
+.change-photo {
+    display: block;
+    margin: 13px auto 0;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 8px;
+    cursor: pointer;
+}
+/* =========================
+   FORM
+========================= */
+.profile-form-card {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    padding: 20px;
+}
+.profile-form-header {
+    margin-bottom: 15px;
+}
+.profile-form-header h2 {
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+.profile-form-header p {
+    font-size: 9px;
+    color: #888;
+}
+.profile-form-group {
+    margin-bottom: 12px;
+}
+.profile-form-group label {
+    display: block;
+    font-size: 9px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.profile-form-group input,
+.profile-form-group textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    outline: none;
+}
+.profile-form-group input:focus,
+.profile-form-group textarea:focus {
+    border-color: #e3c83d;
+}
+.profile-form-group textarea {
+    height: 65px;
+    resize: none;
+}
+/* BUTTON */
+.profile-button-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 15px;
+}
+.cancel-profile,
+.save-profile {
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    font-size: 8px;
+    cursor: pointer;
+}
+.cancel-profile {
+    background: #eee;
+}
+.save-profile {
+    background: #ffffa8;
+    border: 1px solid #e2dd70;
+}
+/* =========================
+   PENGATURAN AKUN
+========================= */
+.account-section {
+    max-width: 950px;
+    margin-bottom: 25px;
+}
+.account-section > h2 {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+.account-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.account-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 7px;
+    background: #eeeece;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+}
+.account-text {
+    flex: 1;
+}
+.account-text h3 {
+    font-size: 10px;
+    margin-bottom: 3px;
+}
+.account-text p {
+    font-size: 8px;
+    color: #888;
+}
+.account-card button,
+.account-card a {
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 8px;
+    text-decoration: none;
+    color: #222;
+    cursor: pointer;
+}
+.logout-card .account-icon {
+    background: #ffe5e5;
+}
+.logout-card a {
+    color: #d9534f;
+    border-color: #f0caca;
+}
+/* RESPONSIVE */
+@media (max-width: 800px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 500px) {
+    .account-card {
+        align-items: flex-start;
+    }
+    .account-card button,
+    .account-card a {
+        margin-left: auto;
+    }
+}
+/* =================================
+   LOGIN PAGE
+================================= */
+.login-page {
+    min-height: 100vh;
+    background: #eeeece;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+/* CONTAINER */
+.login-container {
+    width: 950px;
+    min-height: 560px;
+    background: #fff;
+    border-radius: 28px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 46% 54%;
+    box-shadow: 0 15px 40px rgba(0,0,0,.10);
+}
+/* =================================
+   BAGIAN KIRI
+================================= */
+.login-left {
+    background: #eeeece;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px;
+}
+/* LOGO */
+.login-logo {
+    width: 190px;
+    height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.login-logo img {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+}
+/* JUDUL */
+.login-left h1 {
+    font-size: 27px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 12px;
+}
+/* DESKRIPSI */
+.login-left p {
+    max-width: 330px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #666;
+    margin-bottom: 28px;
+}
+/* FITUR */
+.login-features {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid #d6cf8b;
+    border-radius: 20px;
+    padding: 9px 18px;
+    font-size: 10px;
+    color: #555;
+    background: rgba(255,255,255,.25);
+}
+/* =================================
+   BAGIAN KANAN
+================================= */
+.login-right {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+.login-form-container {
+    width: 100%;
+    max-width: 390px;
+}
+/* JUDUL */
+.login-form-container h2 {
+    font-size: 28px;
+    color: #222;
+    margin-bottom: 6px;
+}
+.login-subtitle {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 30px;
+}
+/* =================================
+   INPUT
+================================= */
+.login-group {
+    margin-bottom: 18px;
+}
+.login-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 7px;
+    color: #333;
+}
+.login-input {
+    width: 100%;
+    height: 52px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 15px;
+    background: #fff;
+    transition: .2s;
+}
+.login-input:focus-within {
+    border-color: #d9bf38;
+    box-shadow: 0 0 0 3px rgba(217,191,56,.12);
+}
+.login-input span {
+    font-size: 17px;
+}
+.login-input input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    color: #333;
+    background: transparent;
+}
+.login-input input::placeholder {
+    color: #999;
+}
+/* =================================
+   OPTIONS
+================================= */
+.login-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0 22px;
+    font-size: 10px;
+}
+.login-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #777;
+}
+.login-options input {
+    accent-color: #d7bd31;
+}
+.login-options a {
+    color: #b18b00;
+    text-decoration: none;
+    font-weight: 600;
+}
+/* =================================
+   BUTTON LOGIN
+================================= */
+.login-button {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 12px;
+    background: #f5c343;
+    color: #222;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+.login-button:hover {
+    background: #eab331;
+    transform: translateY(-1px);
+}
+/* =================================
+   REGISTER
+================================= */
+.login-register {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 11px;
+    color: #777;
+}
+.login-register a {
+    color: #b18b00;
+    text-decoration: none;
+    font-weight: 700;
+}
+/* =================================
+   RESPONSIVE
+================================= */
+@media (max-width: 800px) {
+    .login-container {
+        width: 100%;
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+    .login-left {
+        padding: 35px 25px;
+    }
+    .login-logo {
+        width: 130px;
+        height: 130px;
+    }
+    .login-logo img {
+        width: 125px;
+    }
+    .login-left h1 {
+        font-size: 22px;
+    }
+    .login-right {
+        padding: 35px 25px;
+    }
+}
+@media (max-width: 500px) {
+    .login-page {
+        padding: 15px;
+    }
+    .login-container {
+        border-radius: 18px;
+    }
+    .login-features {
+        font-size: 8px;
+    }
+}
+/* =================================
+   HALAMAN SEMUA PRODUK
+================================= */
+.product-heading {
+    margin: 15px 0 20px;
+}
+.product-heading h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #111;
+}
+.product-heading p {
+    font-size: 12px;
+    color: #777;
+}
+/* GRID PRODUK */
+.product-page-grid {
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    align-items: stretch;
+}
+/* KARTU PRODUK */
+.product-item {
+    display: block;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #222;
+    padding-bottom: 12px;
+    transition: all .2s ease;
+}
+.product-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 7px 18px rgba(0,0,0,.10);
+}
+/* GAMBAR PRODUK */
+.product-item .product-image {
+    width: 100%;
+    height: 160px;
+    background: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.product-item .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: transform .2s ease;
+}
+.product-item:hover .product-image img {
+    transform: scale(1.05);
+}
+/* NAMA PRODUK */
+.product-item h3 {
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 0 12px 6px;
+    color: #222;
+}
+/* HARGA */
+.product-item strong {
+    display: block;
+    font-size: 12px;
+    margin: 0 12px 6px;
+    color: #111;
+}
+/* STATUS */
+.product-item .available {
+    display: inline-block;
+    margin: 0 12px 10px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    background: #e2f7e5;
+    color: #159447;
+    font-size: 8px;
+    font-weight: bold;
+}
+/* BUTTON ADMIN */
+.product-item .admin-button {
+    margin: 0 12px;
+    padding: 7px 5px;
+    background: #f8bc45;
+    color: #222;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 9px;
+    font-weight: bold;
+    transition: .2s;
+}
+.product-item:hover .admin-button {
+    background: #f3ae28;
+}
+/* =================================
+   RESPONSIVE
+================================= */
+@media (max-width: 1100px) {
+    .product-page-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 800px) {
+    .product-page-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 500px) {
+    .product-page-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* =================================
+   REGISTER PAGE
+================================= */
+.register-page {
+    min-height: 100vh;
+    background: #eeeece;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+/* CONTAINER */
+.register-container {
+    width: 950px;
+    min-height: 600px;
+    background: #fff;
+    border-radius: 28px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 46% 54%;
+    box-shadow: 0 15px 40px rgba(0,0,0,.10);
+}
+/* =================================
+   BAGIAN KIRI
+================================= */
+.register-left {
+    background: #eeeece;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px;
+}
+.register-logo {
+    width: 190px;
+    height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.register-logo img {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+}
+.register-left h1 {
+    font-size: 27px;
+    color: #222;
+    margin-bottom: 12px;
+}
+.register-left p {
+    max-width: 330px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #666;
+}
+/* =================================
+   BAGIAN KANAN
+================================= */
+.register-right {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 50px;
+}
+.register-form-container {
+    width: 100%;
+    max-width: 390px;
+}
+.register-form-container h2 {
+    font-size: 27px;
+    color: #222;
+    margin-bottom: 6px;
+}
+.register-subtitle {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 22px;
+}
+/* =================================
+   INPUT
+================================= */
+.register-group {
+    margin-bottom: 12px;
+}
+.register-group label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 6px;
+}
+.register-input {
+    width: 100%;
+    height: 43px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 13px;
+    background: #fff;
+}
+.register-input:focus-within {
+    border-color: #d9bf38;
+    box-shadow: 0 0 0 3px rgba(217,191,56,.12);
+}
+.register-input span {
+    font-size: 14px;
+}
+.register-input input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 10px;
+}
+.register-input input::placeholder {
+    color: #999;
+}
+/* =================================
+   BUTTON
+================================= */
+.register-button {
+    width: 100%;
+    height: 45px;
+    margin-top: 7px;
+    border: none;
+    border-radius: 10px;
+    background: #f5c343;
+    color: #222;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+.register-button:hover {
+    background: #eab331;
+    transform: translateY(-1px);
+}
+/* =================================
+   LOGIN
+================================= */
+.register-login {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 10px;
+    color: #777;
+}
+.register-login a {
+    color: #b18b00;
+    text-decoration: none;
+    font-weight: 700;
+}
+/* =================================
+   RESPONSIVE
+================================= */
+@media (max-width: 800px) {
+    .register-container {
+        width: 100%;
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+    .register-left {
+        padding: 35px 25px;
+    }
+    .register-logo {
+        width: 130px;
+        height: 130px;
+    }
+    .register-logo img {
+        width: 125px;
+    }
+    .register-left h1 {
+        font-size: 22px;
+    }
+    .register-right {
+        padding: 35px 25px;
+    }
+}
+@media (max-width: 500px) {
+    .register-page {
+        padding: 15px;
+    }
+    .register-container {
+        border-radius: 18px;
+    }
+}
+
+/* =========================
+   CHAT TOPBAR
+========================= */
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.chat-topbar {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid #777;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.2s;
+}
+.chat-topbar:hover {
+    background: #ffffa8;
+    transform: translateY(-1px);
+}
+/* =========================
+   CHAT PAGE
+========================= */
+.chat-heading {
+    margin: 15px 0 20px;
+}
+.chat-heading h1 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.chat-heading p {
+    font-size: 11px;
+    color: #777;
+}
+/* CONTAINER CHAT */
+.chat-container {
+    width: 100%;
+    max-width: 850px;
+    height: 500px;
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+/* HEADER CHAT */
+.chat-header {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 18px;
+    background: #eeeece;
+    border-bottom: 1px solid #ddd;
+}
+.chat-admin-avatar {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50%;
+    font-size: 18px;
+}
+.chat-header strong {
+    display: block;
+    font-size: 12px;
+}
+.chat-header span {
+    display: block;
+    margin-top: 3px;
+    font-size: 9px;
+    color: #159447;
+}
+/* BODY CHAT */
+.chat-body {
+    flex: 1;
+    padding: 20px;
+    background: #f8f8f8;
+    overflow-y: auto;
+}
+.chat-message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    max-width: 65%;
+}
+.admin-message {
+    align-items: flex-start;
+}
+.user-message {
+    align-items: flex-end;
+    margin-left: auto;
+}
+.message-bubble {
+    padding: 10px 13px;
+    border-radius: 10px;
+    font-size: 10px;
+    line-height: 1.5;
+}
+.admin-message .message-bubble {
+    background: white;
+    border: 1px solid #e5e5e5;
+}
+.user-message .message-bubble {
+    background: #f5c343;
+    color: #222;
+}
+.chat-message small {
+    font-size: 8px;
+    color: #999;
+    margin-top: 4px;
+}
+/* INPUT CHAT */
+.chat-input-area {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: white;
+    border-top: 1px solid #e5e5e5;
+}
+.chat-input-area input {
+    flex: 1;
+    height: 38px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    padding: 0 15px;
+    font-size: 10px;
+}
+.chat-input-area input:focus {
+    border-color: #e0c53b;
+}
+.chat-input-area button {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: #f5c343;
+    cursor: pointer;
+    font-size: 15px;
+}
+.chat-input-area button:hover {
+    background: #eab331;
+}
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .chat-container {
+        height: 450px;
+    }
+    .chat-message {
+        max-width: 80%;
+    }
+}
+/* =========================
+   DAFTAR CHAT
+========================= */
+.chat-list {
+    width: 100%;
+    max-width: 850px;
+}
+.chat-list-item {
+    width: 100%;
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.chat-list-item:hover {
+    background: #fffdf0;
+    transform: translateY(-1px);
+}
+.chat-list-avatar {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eeeece;
+    border-radius: 50%;
+    font-size: 20px;
+}
+.chat-list-info {
+    flex: 1;
+}
+.chat-list-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.chat-list-top strong {
+    font-size: 12px;
+}
+.chat-list-top span {
+    font-size: 8px;
+    color: #999;
+}
+.chat-list-info p {
+    font-size: 10px;
+    color: #777;
+    margin: 0;
+}
+/* =========================
+   BELUM ADA CHAT
+========================= */
+.empty-chat {
+    width: 100%;
+    max-width: 850px;
+    min-height: 350px;
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.empty-chat-icon {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eeeece;
+    border-radius: 50%;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+.empty-chat h3 {
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+.empty-chat p {
+    font-size: 10px;
+    color: #888;
+    margin-bottom: 18px;
+}
+.start-chat-button {
+    border: none;
+    background: #f5c343;
+    padding: 9px 15px;
+    border-radius: 7px;
+    font-size: 9px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.start-chat-button:hover {
+    background: #eab331;
+}
+/* =========================
+   TOMBOL KEMBALI CHAT
+========================= */
+.back-chat-button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: white;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 3px;
+}
+.back-chat-button:hover {
+    background: #ffffa8;
+}
