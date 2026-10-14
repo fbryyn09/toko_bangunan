@@ -7,17 +7,16 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>@yield('title') - Bintang Jaya Emas</title>
+    <title>@yield('title') - Bintang Emas Mandiri</title>
+
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo.png') }}">
 
     {{-- Bootstrap --}}
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     {{-- CSS Pelanggan --}}
-    <link
-        rel="stylesheet"
-        href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     @yield('styles')
 
@@ -36,10 +35,7 @@
 
         <div class="sidebar-logo-wrapper">
 
-            <img
-                src="{{ asset('assets/images/logo.png') }}"
-                alt="Bintang Emas Mandiri"
-                class="sidebar-logo">
+            <img src="{{ asset('assets/images/logo.png') }}" alt="Bintang Emas Mandiri" class="sidebar-logo">
 
         </div>
 
@@ -50,8 +46,7 @@
 
             {{-- BERANDA --}}
 
-            <a
-                href="{{ route('pelanggan.beranda') }}"
+            <a href="{{ route('pelanggan.beranda') }}"
                 class="{{ request()->routeIs('pelanggan.beranda') ? 'active' : '' }}">
 
                 <span class="menu-icon">⌂</span>
@@ -63,8 +58,7 @@
 
             {{-- PRODUK --}}
 
-            <a
-                href="{{ route('pelanggan.produk') }}"
+            <a href="{{ route('pelanggan.produk') }}"
                 class="{{ request()->routeIs('pelanggan.produk') || request()->routeIs('pelanggan.detail-produk') ? 'active' : '' }}">
 
                 <span class="menu-icon">🛒</span>
@@ -76,8 +70,7 @@
 
             {{-- KATEGORI --}}
 
-            <a
-                href="{{ route('pelanggan.kategori') }}"
+            <a href="{{ route('pelanggan.kategori') }}"
                 class="{{ request()->routeIs('pelanggan.kategori') || request()->routeIs('pelanggan.kategori-produk') ? 'active' : '' }}">
 
                 <span class="menu-icon">▤</span>
@@ -89,8 +82,7 @@
 
             {{-- PROMO --}}
 
-            <a
-                href="{{ route('pelanggan.promo') }}"
+            <a href="{{ route('pelanggan.promo') }}"
                 class="{{ request()->routeIs('pelanggan.promo') ? 'active' : '' }}">
 
                 <span class="menu-icon">%</span>
@@ -102,8 +94,7 @@
 
             {{-- RIWAYAT PESANAN --}}
 
-            <a
-                href="{{ route('pelanggan.riwayat-pesanan') }}"
+            <a href="{{ route('pelanggan.riwayat-pesanan') }}"
                 class="{{ request()->routeIs('pelanggan.riwayat-pesanan') ? 'active' : '' }}">
 
                 <span class="menu-icon">🧾</span>
@@ -115,8 +106,7 @@
 
             {{-- TENTANG TOKO --}}
 
-            <a
-                href="{{ route('pelanggan.tentang') }}"
+            <a href="{{ route('pelanggan.tentang') }}"
                 class="{{ request()->routeIs('pelanggan.tentang') ? 'active' : '' }}">
 
                 <span class="menu-icon">⊞</span>
@@ -128,8 +118,7 @@
 
             {{-- PROFIL --}}
 
-            <a
-                href="{{ route('pelanggan.profil') }}"
+            <a href="{{ route('pelanggan.profil') }}"
                 class="{{ request()->routeIs('pelanggan.profil') ? 'active' : '' }}">
 
                 <span class="menu-icon">◉</span>
@@ -156,9 +145,7 @@
 
     {{-- Bootstrap JS --}}
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     @yield('scripts')
 

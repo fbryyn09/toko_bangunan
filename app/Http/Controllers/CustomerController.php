@@ -9,6 +9,7 @@ use App\Models\Produk;
 use App\Models\Kategori;
 use App\Models\Promosi;
 use App\Models\Pesanan;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CustomerController extends Controller
 {
@@ -171,5 +172,50 @@ class CustomerController extends Controller
             ->firstOrFail();
 
         return view('pelanggan.detail-pesanan', compact('pesanan'));
+    }
+
+    public function strukPesanan($id)
+    {
+        $pelanggan = Auth::user()->pelanggan;
+
+        if (!$pelanggan) {
+            abort(404);
+        }
+
+        $pesanan = Pesanan::with([
+            'pelanggan.user',
+            'detailPesanan.produk',
+        ])
+            ->where('id_pesanan', $id)
+            ->where('id_pelanggan', $pelanggan->id_pelanggan)
+            ->firstOrFail();
+
+        return view('pelanggan.struk-pesanan', compact('pesanan'));
+    }
+
+    public function downloadStrukPdf($id)
+    {
+        $pelanggan = Auth::user()->pelanggan;
+
+        if (!$pelanggan) {
+            abort(404);
+        }
+
+        $pesanan = Pesanan::with([
+            'pelanggan.user',
+            'detailPesanan.produk',
+        ])
+            ->where('id_pesanan', $id)
+            ->where('id_pelanggan', $pelanggan->id_pelanggan)
+            ->firstOrFail();
+
+        $pdf = Pdf::loadView(
+            'pelanggan.struk-pdf',
+            compact('pesanan')
+        )->setPaper('a4', 'portrait');
+
+        return $pdf->download(
+            'struk-' . $pesanan->id_pesanan . '.pdf'
+        );
     }
 }

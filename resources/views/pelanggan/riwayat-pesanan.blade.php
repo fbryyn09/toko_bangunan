@@ -20,13 +20,13 @@
                 <div class="order-header">
 
                     <div>
-                        <span class="order-label">
+                        {{-- <span class="order-label">
                             ID Pesanan
                         </span>
 
                         <h3 class="order-id">
                             {{ $item->id_pesanan }}
-                        </h3>
+                        </h3> --}}
 
                         <p class="order-date">
                             {{ \Carbon\Carbon::parse($item->tanggal_pesanan)->translatedFormat('d F Y, H:i') }}
@@ -35,35 +35,25 @@
 
                     {{-- STATUS --}}
                     @if ($item->status_pesanan == 'menunggu')
-
                         <span class="order-status status-menunggu">
                             Menunggu
                         </span>
-
                     @elseif ($item->status_pesanan == 'diproses')
-
                         <span class="order-status status-diproses">
                             Diproses
                         </span>
-
                     @elseif ($item->status_pesanan == 'selesai')
-
                         <span class="order-status status-selesai">
                             Selesai
                         </span>
-
                     @elseif ($item->status_pesanan == 'dibatalkan')
-
                         <span class="order-status status-dibatalkan">
                             Dibatalkan
                         </span>
-
                     @else
-
                         <span class="order-status status-menunggu">
                             {{ ucfirst($item->status_pesanan) }}
                         </span>
-
                     @endif
 
                 </div>
@@ -73,24 +63,18 @@
                 <div class="order-items">
 
                     @foreach ($item->detailPesanan as $detail)
-
                         <div class="order-item">
 
                             {{-- FOTO --}}
                             <div class="item-image">
 
                                 @if ($detail->produk && $detail->produk->gambar)
-
-                                    <img
-                                        src="{{ asset('storage/' . $detail->produk->gambar) }}"
+                                    <img src="{{ asset('storage/' . $detail->produk->gambar) }}"
                                         alt="{{ $detail->produk->nama_produk }}">
-
                                 @else
-
                                     <div class="item-no-image">
                                         📦
                                     </div>
-
                                 @endif
 
                             </div>
@@ -118,7 +102,6 @@
                             </div>
 
                         </div>
-
                     @endforeach
 
                 </div>
@@ -134,17 +117,11 @@
                         <strong>
 
                             @if ($item->metode_pembayaran == 'cod')
-
                                 COD
-
                             @elseif ($item->metode_pembayaran == 'qris')
-
                                 QRIS
-
                             @else
-
                                 {{ strtoupper($item->metode_pembayaran) }}
-
                             @endif
 
                         </strong>
@@ -166,15 +143,9 @@
 
 
                         {{-- TOMBOL DETAIL --}}
-                        <a
-                            href="{{ route('pelanggan.detail-pesanan', $item->id_pesanan) }}"
-                            class="btn-detail-order">
+                        <a href="{{ route('pelanggan.detail-pesanan', $item->id_pesanan) }}" class="btn-detail-order">
 
                             <span>Lihat Detail</span>
-
-                            <span class="btn-detail-icon">
-                                →
-                            </span>
 
                         </a>
 
@@ -201,9 +172,7 @@
                     Anda belum melakukan pemesanan produk.
                 </p>
 
-                <a
-                    href="{{ route('pelanggan.produk') }}"
-                    class="btn-products">
+                <a href="{{ route('pelanggan.produk') }}" class="btn-products">
 
                     Mulai Belanja
 
@@ -217,10 +186,9 @@
 
 
     <style>
-
         /* =========================================
-           HALAMAN
-        ========================================= */
+               HALAMAN
+            ========================================= */
 
         .history-page {
             width: 100%;
@@ -230,8 +198,8 @@
 
 
         /* =========================================
-           HEADER
-        ========================================= */
+               HEADER
+            ========================================= */
 
         .history-header {
             margin-bottom: 30px;
@@ -252,8 +220,8 @@
 
 
         /* =========================================
-           CARD PESANAN
-        ========================================= */
+               CARD PESANAN
+            ========================================= */
 
         .order-card {
             background: #ffffff;
@@ -271,8 +239,8 @@
 
 
         /* =========================================
-           HEADER ORDER
-        ========================================= */
+               HEADER ORDER
+            ========================================= */
 
         .order-header {
             display: flex;
@@ -307,8 +275,8 @@
 
 
         /* =========================================
-           STATUS
-        ========================================= */
+               STATUS
+            ========================================= */
 
         .order-status {
             padding: 7px 14px;
@@ -340,8 +308,8 @@
 
 
         /* =========================================
-           ITEM PRODUK
-        ========================================= */
+               ITEM PRODUK
+            ========================================= */
 
         .order-items {
             padding: 8px 22px;
@@ -416,8 +384,8 @@
 
 
         /* =========================================
-           FOOTER ORDER
-        ========================================= */
+               FOOTER ORDER
+            ========================================= */
 
         .order-footer {
             display: flex;
@@ -453,8 +421,8 @@
 
 
         /* =========================================
-           TOMBOL LIHAT DETAIL
-        ========================================= */
+               TOMBOL LIHAT DETAIL
+            ========================================= */
 
         .order-total-wrapper {
             display: flex;
@@ -491,17 +459,6 @@
                 box-shadow 0.25s ease;
         }
 
-        .btn-detail-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 16px;
-            line-height: 1;
-
-            transition: transform 0.25s ease;
-        }
-
         .btn-detail-order:hover {
             background: #dedf00;
             border-color: #dedf00;
@@ -523,8 +480,8 @@
 
 
         /* =========================================
-           EMPTY
-        ========================================= */
+               EMPTY
+            ========================================= */
 
         .empty-order {
             text-align: center;
@@ -580,8 +537,8 @@
 
 
         /* =========================================
-           RESPONSIVE
-        ========================================= */
+               RESPONSIVE
+            ========================================= */
 
         @media (max-width: 768px) {
 
@@ -670,7 +627,6 @@
             }
 
         }
-
     </style>
 
 @endsection

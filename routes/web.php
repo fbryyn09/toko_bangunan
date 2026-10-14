@@ -7,6 +7,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PromosiController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -268,3 +269,33 @@ Route::get('/pelanggan/riwayat-pesanan', [CustomerController::class, 'riwayatPes
 Route::get('/pelanggan/riwayat-pesanan/{id}', [CustomerController::class, 'detailPesanan'])
     ->middleware('auth')
     ->name('pelanggan.detail-pesanan');
+
+// -----------------------------------------------------
+// STRUK PESANAN PELANGGAN
+// -----------------------------------------------------
+
+Route::get('/pelanggan/riwayat-pesanan/{id}/struk', [
+    CustomerController::class,
+    'strukPesanan'
+])
+    ->middleware('auth')
+    ->name('pelanggan.struk-pesanan');
+
+Route::get('/pelanggan/riwayat-pesanan/{id}/struk/pdf', [
+    CustomerController::class,
+    'downloadStrukPdf'
+])
+    ->middleware('auth')
+    ->name('pelanggan.struk-pesanan.pdf');
+
+// -----------------------------------------------------
+// LAPORAN PENJUALAN
+// -----------------------------------------------------
+
+Route::get('/admin/laporan', [LaporanController::class, 'index'])
+    ->middleware('auth')
+    ->name('admin.laporan.index');
+
+Route::get('/admin/laporan/pdf', [LaporanController::class, 'pdf'])
+    ->middleware('auth')
+    ->name('admin.laporan.pdf');

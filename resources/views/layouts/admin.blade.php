@@ -7,10 +7,13 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>@yield('title') - Bintang Jaya Emas</title>
+    <title>@yield('title') - Bintang Emas Mandiri</title>
+
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo.png') }}">
 
     {{-- Bootstrap 5 --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         /* =====================================================
@@ -342,61 +345,42 @@
 
             <a href="{{ route('admin.dashboard') }}"
                 class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <span class="menu-icon">
-                    ⌂
-                </span>
-
-                <span>
-                    Dashboard
-                </span>
+                <span><i class="bi bi-speedometer2"></i></span>
+                <span>Dashboard</span>
             </a>
 
 
             <a href="{{ route('admin.kategori.index') }}"
                 class="{{ request()->routeIs('admin.kategori.*') ? 'active' : '' }}">
-                <span class="menu-icon">
-                    ▤
-                </span>
-
-                <span>
-                    Kategori
-                </span>
+                <span><i class="bi bi-grid"></i></span>
+                <span>Kategori</span>
             </a>
 
 
             <a href="{{ route('admin.produk.index') }}"
                 class="{{ request()->routeIs('admin.produk.*') ? 'active' : '' }}">
-                <span class="menu-icon">
-                    ◈
-                </span>
-
-                <span>
-                    Produk
-                </span>
+                <span><i class="bi bi-box-seam"></i></span>
+                <span>Produk</span>
             </a>
 
 
             <a href="{{ route('admin.promosi.index') }}"
                 class="{{ request()->routeIs('admin.promosi.*') ? 'active' : '' }}">
-                <span class="menu-icon">
-                    %
-                </span>
-
-                <span>
-                    Promosi
-                </span>
+                <span><i class="bi bi-tags"></i></span>
+                <span>Promosi</span>
             </a>
 
 
             <a href="{{ route('admin.pesanan.index') }}"
                 class="{{ request()->routeIs('admin.pesanan.*') ? 'active' : '' }}">
-                <span class="menu-icon">
-                    🧾
-                </span>
+                <span><i class="bi bi-cart3"></i></span>
+                <span>Pesanan</span>
+            </a>
 
-                <span>
-                    Pesanan
-                </span>
+            <a href="{{ route('admin.laporan.index') }}"
+                class="{{ request()->routeIs('admin.laporan.*') ? 'active' : '' }}">
+                <span><i class="bi bi-bar-chart-line"></i></span>
+                <span>Laporan Penjualan</span>
             </a>
 
         </nav>

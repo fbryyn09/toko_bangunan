@@ -42,35 +42,25 @@
             <div class="order-info-right">
 
                 @if ($pesanan->status_pesanan == 'menunggu')
-
                     <span class="order-status status-menunggu">
                         Menunggu
                     </span>
-
                 @elseif ($pesanan->status_pesanan == 'diproses')
-
                     <span class="order-status status-diproses">
                         Diproses
                     </span>
-
                 @elseif ($pesanan->status_pesanan == 'selesai')
-
                     <span class="order-status status-selesai">
                         Selesai
                     </span>
-
                 @elseif ($pesanan->status_pesanan == 'dibatalkan')
-
                     <span class="order-status status-dibatalkan">
                         Dibatalkan
                     </span>
-
                 @else
-
                     <span class="order-status status-menunggu">
                         {{ ucfirst($pesanan->status_pesanan) }}
                     </span>
-
                 @endif
 
             </div>
@@ -89,24 +79,18 @@
             <div class="product-list">
 
                 @foreach ($pesanan->detailPesanan as $detail)
-
                     <div class="product-row">
 
                         {{-- GAMBAR --}}
                         <div class="product-image">
 
                             @if ($detail->produk && $detail->produk->gambar)
-
-                                <img
-                                    src="{{ asset('storage/' . $detail->produk->gambar) }}"
+                                <img src="{{ asset('storage/' . $detail->produk->gambar) }}"
                                     alt="{{ $detail->produk->nama_produk }}">
-
                             @else
-
                                 <div class="no-image">
                                     📦
                                 </div>
-
                             @endif
 
                         </div>
@@ -136,7 +120,6 @@
                         </div>
 
                     </div>
-
                 @endforeach
 
             </div>
@@ -195,16 +178,23 @@
         </div>
 
 
-        {{-- TOMBOL KEMBALI --}}
+        {{-- TOMBOL AKSI --}}
         <div class="bottom-action">
 
-            <a
-                href="{{ route('pelanggan.riwayat-pesanan') }}"
-                class="back-button">
+            <div class="order-action-buttons">
 
-                ← Kembali ke Riwayat
+                {{-- KEMBALI --}}
+                <a href="{{ route('pelanggan.riwayat-pesanan') }}" class="aksi-button">
+                    Kembali ke Riwayat
+                </a>
 
-            </a>
+                {{-- CETAK STRUK --}}
+                <a href="{{ route('pelanggan.struk-pesanan', $pesanan->id_pesanan) }}" class="aksi-button"
+                    style="background: #f1f000; border-color: #f1f000;">
+                    Cetak Struk
+                </a>
+
+            </div>
 
         </div>
 
@@ -212,10 +202,9 @@
 
 
     <style>
-
         /* =========================================
-           PAGE
-        ========================================= */
+                       PAGE
+                    ========================================= */
 
         .detail-page {
             width: 100%;
@@ -226,8 +215,8 @@
 
 
         /* =========================================
-           HEADER
-        ========================================= */
+                       HEADER
+                    ========================================= */
 
         .detail-header {
             margin-bottom: 25px;
@@ -269,8 +258,8 @@
 
 
         /* =========================================
-           ORDER INFO
-        ========================================= */
+                       ORDER INFO
+                    ========================================= */
 
         .order-info {
             display: flex;
@@ -322,8 +311,8 @@
 
 
         /* =========================================
-           STATUS
-        ========================================= */
+                       STATUS
+                    ========================================= */
 
         .order-status {
             display: inline-flex;
@@ -360,8 +349,8 @@
 
 
         /* =========================================
-           SECTION
-        ========================================= */
+                       SECTION
+                    ========================================= */
 
         .detail-section {
             width: 100%;
@@ -389,8 +378,8 @@
 
 
         /* =========================================
-           PRODUK
-        ========================================= */
+                       PRODUK
+                    ========================================= */
 
         .product-list {
             padding: 0 22px;
@@ -492,8 +481,8 @@
 
 
         /* =========================================
-           PEMBAYARAN
-        ========================================= */
+                       PEMBAYARAN
+                    ========================================= */
 
         .payment-content {
             padding: 0 22px;
@@ -548,14 +537,14 @@
 
 
         /* =========================================
-           BOTTOM BUTTON
-        ========================================= */
+                       BOTTOM BUTTON
+                    ========================================= */
 
         .bottom-action {
             margin-top: 24px;
         }
 
-        .back-button {
+        .aksi-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -569,7 +558,7 @@
 
             background: #fff;
 
-            color: #555;
+            color: #222;
 
             font-size: 13px;
             font-weight: 600;
@@ -579,17 +568,17 @@
             transition: .2s ease;
         }
 
-        .back-button:hover {
-            background: #f1f000;
-            border-color: #f1f000;
+        /* .aksi-button:hover {
+                    background: #f1f000;
+                    border-color: #f1f000;
 
-            color: #222;
-        }
+                    color: #222;
+                } */
 
 
         /* =========================================
-           RESPONSIVE
-        ========================================= */
+                       RESPONSIVE
+                    ========================================= */
 
         @media (max-width: 768px) {
 
@@ -682,7 +671,6 @@
             }
 
         }
-
     </style>
 
 @endsection
