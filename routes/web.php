@@ -233,6 +233,10 @@ Route::get('/pelanggan/promo', [CustomerController::class, 'promo'])
     ->middleware('auth')
     ->name('pelanggan.promo');
 
+Route::get('/promo/{id}', [CustomerController::class, 'detailPromo'])
+    ->middleware('auth')
+    ->name('pelanggan.detail-promo');
+
 
 // -----------------------------------------------------
 // TENTANG TOKO

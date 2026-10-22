@@ -97,6 +97,7 @@ class PesananController extends Controller
     // SIMPAN PESANAN PELANGGAN
     // =====================================================
 
+
     public function store(Request $request)
     {
         $request->validate([
@@ -105,55 +106,72 @@ class PesananController extends Controller
             'metode_pembayaran' => 'required|in:cod,qris',
         ]);
 
-
         $user = Auth::user();
-
-
-        // Ambil data pelanggan berdasarkan user yang sedang login
         $pelanggan = $user->pelanggan;
 
         if (!$pelanggan) {
-
             return back()->withErrors([
                 'pesanan' => 'Data pelanggan tidak ditemukan.'
             ]);
         }
 
-
-        // Ambil produk
+        // Ambil produk dan pastikan tersedia.
         $produk = Produk::findOrFail($request->id_produk);
 
-
-        // =====================================================
-        // CEK STOK
-        // =====================================================
+        if ($produk->status !== 'tersedia') {
+            return back()->withErrors([
+                'pesanan' => 'Produk sedang tidak tersedia.'
+            ]);
+        }
 
         if ($request->jumlah > $produk->stok) {
-
             return back()->withErrors([
                 'jumlah' => 'Jumlah pesanan melebihi stok yang tersedia.'
             ]);
         }
 
+        // Cari promosi yang berlaku untuk produk ini.
+        $hariIni = now()->toDateString();
 
-        // =====================================================
-        // HITUNG TOTAL
-        // =====================================================
+        $promoAktif = $produk->promosi()
+            ->where('promosi.status', 'aktif')
+            ->whereDate('promosi.tanggal_mulai', '<=', $hariIni)
+            ->whereDate('promosi.tanggal_selesai', '>=', $hariIni)
+            ->orderBy('promosi.tanggal_selesai', 'asc')
+            ->first();
 
-        $totalHarga = $produk->harga * $request->jumlah;
+        // Hitung harga satuan setelah diskon.
+        $hargaAsli = (float) $produk->harga;
+        $hargaDiskon = $hargaAsli;
+        $nilaiDiskon = 0;
 
+        if ($promoAktif) {
+            if (in_array($promoAktif->jenis_diskon, ['persen', 'persentase'])) {
+                $nilaiDiskon = $hargaAsli
+                    * ((float) $promoAktif->nilai_diskon / 100);
+            } else {
+                // Jenis diskon selain persen dianggap nominal.
+                $nilaiDiskon = (float) $promoAktif->nilai_diskon;
+            }
+
+            // Pastikan diskon tidak negatif atau melebihi harga asli.
+            $nilaiDiskon = min($hargaAsli, max(0, $nilaiDiskon));
+            $hargaDiskon = $hargaAsli - $nilaiDiskon;
+        }
+
+        // Total pesanan menggunakan harga setelah diskon.
+        $jumlah = (int) $request->jumlah;
+        $totalHarga = $hargaDiskon * $jumlah;
 
         DB::transaction(function () use (
             $request,
             $pelanggan,
             $produk,
+            $jumlah,
+            $hargaDiskon,
             $totalHarga
         ) {
-
-            // =================================================
-            // MEMBUAT ID PESANAN
-            // =================================================
-
+            // Buat ID pesanan berikutnya.
             $pesananTerakhir = Pesanan::where(
                 'id_pesanan',
                 'like',
@@ -161,17 +179,11 @@ class PesananController extends Controller
             )
                 ->get()
                 ->map(function ($pesanan) {
-
-                    return (int) substr(
-                        $pesanan->id_pesanan,
-                        3
-                    );
+                    return (int) substr($pesanan->id_pesanan, 3);
                 })
                 ->max();
 
-
             $nomorPesanan = ($pesananTerakhir ?? 0) + 1;
-
 
             $idPesanan = 'PSN' . str_pad(
                 $nomorPesanan,
@@ -180,11 +192,7 @@ class PesananController extends Controller
                 STR_PAD_LEFT
             );
 
-
-            // =================================================
-            // SIMPAN PESANAN
-            // =================================================
-
+            // Simpan pesanan dengan total setelah diskon.
             $pesanan = Pesanan::create([
                 'id_pesanan' => $idPesanan,
                 'id_pelanggan' => $pelanggan->id_pelanggan,
@@ -195,11 +203,7 @@ class PesananController extends Controller
                 'catatan' => '',
             ]);
 
-
-            // =================================================
-            // MEMBUAT ID DETAIL PESANAN
-            // =================================================
-
+            // Buat ID detail pesanan berikutnya.
             $detailTerakhir = DetailPesanan::where(
                 'id_detail',
                 'like',
@@ -207,17 +211,11 @@ class PesananController extends Controller
             )
                 ->get()
                 ->map(function ($detail) {
-
-                    return (int) substr(
-                        $detail->id_detail,
-                        3
-                    );
+                    return (int) substr($detail->id_detail, 3);
                 })
                 ->max();
 
-
             $nomorDetail = ($detailTerakhir ?? 0) + 1;
-
 
             $idDetail = 'DTL' . str_pad(
                 $nomorDetail,
@@ -226,43 +224,25 @@ class PesananController extends Controller
                 STR_PAD_LEFT
             );
 
-
-            // =================================================
-            // SIMPAN DETAIL PESANAN
-            // =================================================
-
+            // Simpan harga satuan dan subtotal setelah diskon.
             DetailPesanan::create([
                 'id_detail' => $idDetail,
                 'id_pesanan' => $pesanan->id_pesanan,
                 'id_produk' => $produk->id_produk,
-                'jumlah' => $request->jumlah,
-                'harga' => $produk->harga,
+                'jumlah' => $jumlah,
+                'harga' => $hargaDiskon,
                 'subtotal' => $totalHarga,
             ]);
 
+            // Kurangi stok produk.
+            $produk->stok = max(0, $produk->stok - $jumlah);
 
-            // =================================================
-            // KURANGI STOK PRODUK
-            // =================================================
-
-            $produk->stok = $produk->stok - $request->jumlah;
-
-
-            // Jika stok habis, ubah status menjadi habis
             if ($produk->stok <= 0) {
-
-                $produk->stok = 0;
                 $produk->status = 'habis';
             }
 
-
             $produk->save();
         });
-
-
-        // =====================================================
-        // REDIRECT
-        // =====================================================
 
         return redirect()
             ->route('pelanggan.pesanan.berhasil')

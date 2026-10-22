@@ -6,16 +6,16 @@
 
     <style>
         /* =========================================
-           HALAMAN PRODUK
-        ========================================= */
+               HALAMAN PRODUK
+            ========================================= */
         .product-page {
             width: 100%;
             padding: 5px 0 40px;
         }
 
         /* =========================================
-           TOPBAR
-        ========================================= */
+               TOPBAR
+            ========================================= */
         .product-topbar {
             width: 100%;
             display: flex;
@@ -27,8 +27,8 @@
         }
 
         /* =========================================
-           SEARCH PRODUK
-        ========================================= */
+               SEARCH PRODUK
+            ========================================= */
         .product-search {
             width: 100%;
             max-width: 760px;
@@ -115,8 +115,8 @@
         }
 
         /* =========================================
-           USER PELANGGAN
-        ========================================= */
+               USER PELANGGAN
+            ========================================= */
         .customer-info {
             flex-shrink: 0;
             display: flex;
@@ -155,8 +155,8 @@
         }
 
         /* =========================================
-           JUDUL PRODUK
-        ========================================= */
+               JUDUL PRODUK
+            ========================================= */
         .product-heading {
             margin-bottom: 25px;
         }
@@ -174,8 +174,8 @@
         }
 
         /* =========================================
-           GRID PRODUK
-        ========================================= */
+               GRID PRODUK
+            ========================================= */
         .product-page-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -183,8 +183,8 @@
         }
 
         /* =========================================
-           CARD PRODUK
-        ========================================= */
+               CARD PRODUK
+            ========================================= */
         .product-item {
             display: block;
             background: #ffffff;
@@ -208,8 +208,8 @@
         }
 
         /* =========================================
-           GAMBAR PRODUK
-        ========================================= */
+               GAMBAR PRODUK
+            ========================================= */
         .product-image {
             width: 100%;
             height: 190px;
@@ -233,8 +233,8 @@
         }
 
         /* =========================================
-           INFORMASI PRODUK
-        ========================================= */
+               INFORMASI PRODUK
+            ========================================= */
         .product-info {
             padding: 15px 16px 16px;
         }
@@ -271,8 +271,8 @@
         }
 
         /* =========================================
-           BAGIAN BAWAH CARD
-        ========================================= */
+               BAGIAN BAWAH CARD
+            ========================================= */
         .product-bottom {
             display: flex;
             align-items: center;
@@ -281,8 +281,8 @@
         }
 
         /* =========================================
-           STATUS PRODUK
-        ========================================= */
+               STATUS PRODUK
+            ========================================= */
         .product-status {
             font-size: 11px;
             font-weight: 600;
@@ -298,8 +298,8 @@
         }
 
         /* =========================================
-           TOMBOL LIHAT PRODUK
-        ========================================= */
+               TOMBOL LIHAT PRODUK
+            ========================================= */
         .detail-button {
             display: inline-flex;
             align-items: center;
@@ -330,8 +330,8 @@
         }
 
         /* =========================================
-           JIKA PRODUK KOSONG
-        ========================================= */
+               JIKA PRODUK KOSONG
+            ========================================= */
         .empty-product {
             grid-column: 1 / -1;
             text-align: center;
@@ -343,8 +343,8 @@
         }
 
         /* =========================================
-           RESPONSIVE TABLET
-        ========================================= */
+               RESPONSIVE TABLET
+            ========================================= */
         @media (max-width: 1100px) {
             .product-page-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -352,8 +352,8 @@
         }
 
         /* =========================================
-           RESPONSIVE HP
-        ========================================= */
+               RESPONSIVE HP
+            ========================================= */
         @media (max-width: 800px) {
             .product-page-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -376,8 +376,8 @@
         }
 
         /* =========================================
-           RESPONSIVE HP KECIL
-        ========================================= */
+               RESPONSIVE HP KECIL
+            ========================================= */
         @media (max-width: 700px) {
             .product-search {
                 max-width: 100%;
@@ -561,9 +561,54 @@
                         </div>
 
                         {{-- HARGA --}}
+
+                        {{-- HARGA PRODUK DAN DISKON --}}
+                        @php
+                            $hariIni = now()->toDateString();
+
+                            $promoAktif = $item
+                                ->promosi()
+                                ->where('promosi.status', 'aktif')
+                                ->whereDate('promosi.tanggal_mulai', '<=', $hariIni)
+                                ->whereDate('promosi.tanggal_selesai', '>=', $hariIni)
+                                ->orderBy('promosi.tanggal_selesai', 'asc')
+                                ->first();
+
+                            $hargaAsli = (float) $item->harga;
+                            $hargaDiskon = $hargaAsli;
+                            $nilaiDiskon = 0;
+
+                            if ($promoAktif) {
+                                if (in_array($promoAktif->jenis_diskon, ['persen', 'persentase'])) {
+                                    $nilaiDiskon = $hargaAsli * ((float) $promoAktif->nilai_diskon / 100);
+                                } else {
+                                    $nilaiDiskon = (float) $promoAktif->nilai_diskon;
+                                }
+
+                                $nilaiDiskon = min($hargaAsli, max(0, $nilaiDiskon));
+                                $hargaDiskon = $hargaAsli - $nilaiDiskon;
+                            }
+                        @endphp
+
                         <div class="product-price">
-                            Rp {{ number_format($item->harga, 0, ',', '.') }}
+                            @if ($promoAktif && $hargaDiskon < $hargaAsli)
+                                <div style="font-size: 12px; color: #888; text-decoration: line-through; font-weight: 500;">
+                                    Rp {{ number_format($hargaAsli, 0, ',', '.') }}
+                                </div>
+
+                                <div style="color: #d92d20;">
+                                    Rp {{ number_format($hargaDiskon, 0, ',', '.') }}
+                                </div>
+
+                                <span
+                                    style="display: inline-block; background: #fde8e7; color: #d92d20; padding: 3px 7px; border-radius: 5px; font-size: 10px; font-weight: 700;">
+                                    Hemat Rp {{ number_format($nilaiDiskon, 0, ',', '.') }}
+                                </span>
+                            @else
+                                Rp {{ number_format($hargaAsli, 0, ',', '.') }}
+                            @endif
                         </div>
+
 
                         {{-- STATUS + TOMBOL --}}
                         <div class="product-bottom">

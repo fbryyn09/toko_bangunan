@@ -88,6 +88,7 @@ class CustomerController extends Controller
         return view('pelanggan.checkout', compact('produk'));
     }
 
+
     public function pembayaran(Request $request)
     {
         $request->validate([
@@ -98,21 +99,61 @@ class CustomerController extends Controller
 
         $produk = Produk::findOrFail($request->id_produk);
 
+        if ($produk->status !== 'tersedia') {
+            return back()->withErrors([
+                'jumlah' => 'Produk sedang tidak tersedia.'
+            ]);
+        }
+
         if ($request->jumlah > $produk->stok) {
             return back()->withErrors([
                 'jumlah' => 'Jumlah pesanan melebihi stok yang tersedia.'
             ]);
         }
 
-        $subtotal = $produk->harga * $request->jumlah;
+        // Cari promosi yang berlaku untuk produk ini.
+        $hariIni = now()->toDateString();
+
+        $promoAktif = $produk->promosi()
+            ->where('promosi.status', 'aktif')
+            ->whereDate('promosi.tanggal_mulai', '<=', $hariIni)
+            ->whereDate('promosi.tanggal_selesai', '>=', $hariIni)
+            ->orderBy('promosi.tanggal_selesai', 'asc')
+            ->first();
+
+        // Harga asli tetap diambil dari database.
+        $hargaAsli = (float) $produk->harga;
+        $nilaiDiskon = 0;
+        $hargaDiskon = $hargaAsli;
+
+        if ($promoAktif) {
+            if (in_array($promoAktif->jenis_diskon, ['persen', 'persentase'])) {
+                $nilaiDiskon = $hargaAsli
+                    * ((float) $promoAktif->nilai_diskon / 100);
+            } else {
+                $nilaiDiskon = (float) $promoAktif->nilai_diskon;
+            }
+
+            // Diskon tidak boleh negatif atau melebihi harga produk.
+            $nilaiDiskon = min($hargaAsli, max(0, $nilaiDiskon));
+            $hargaDiskon = $hargaAsli - $nilaiDiskon;
+        }
+
+        // Total dihitung dari harga setelah diskon.
+        $subtotal = $hargaDiskon * (int) $request->jumlah;
 
         return view('pelanggan.pembayaran', [
             'produk' => $produk,
-            'jumlah' => $request->jumlah,
+            'jumlah' => (int) $request->jumlah,
             'subtotal' => $subtotal,
             'metodePembayaran' => $request->metode_pembayaran,
+            'promoAktif' => $promoAktif,
+            'hargaAsli' => $hargaAsli,
+            'hargaDiskon' => $hargaDiskon,
+            'nilaiDiskon' => $nilaiDiskon,
         ]);
     }
+
 
     public function kategori()
     {
@@ -121,14 +162,73 @@ class CustomerController extends Controller
         return view('pelanggan.kategori', compact('kategori'));
     }
 
+
     public function promo()
     {
-        $promosi = Promosi::with('produk')
+        $hariIni = now()->toDateString();
+
+        $promosi = Promosi::with([
+            'produk' => function ($query) {
+                $query->where('status', 'tersedia');
+            }
+        ])
             ->where('status', 'aktif')
+            ->whereDate('tanggal_mulai', '<=', $hariIni)
+            ->whereDate('tanggal_selesai', '>=', $hariIni)
+            ->orderBy('tanggal_selesai', 'asc')
             ->get();
 
         return view('pelanggan.promo', compact('promosi'));
     }
+
+
+    public function detailPromo($id)
+    {
+        $hariIni = now()->toDateString();
+
+        $promosi = Promosi::with([
+            'produk' => function ($query) {
+                $query->where('produk.status', 'tersedia');
+            }
+        ])
+            ->where('id_promosi', $id)
+            ->where('status', 'aktif')
+            ->whereDate('tanggal_mulai', '<=', $hariIni)
+            ->whereDate('tanggal_selesai', '>=', $hariIni)
+            ->firstOrFail();
+
+        // Sisakan produk yang benar-benar mendapat potongan harga.
+        $produkPromo = $promosi->produk
+            ->map(function ($produk) use ($promosi) {
+                $hargaAsli = (float) $produk->harga;
+
+                if (in_array($promosi->jenis_diskon, ['persen', 'persentase'])) {
+                    $diskon = $hargaAsli
+                        * ((float) $promosi->nilai_diskon / 100);
+                } else {
+                    $diskon = (float) $promosi->nilai_diskon;
+                }
+
+                $diskon = min($hargaAsli, max(0, $diskon));
+
+                $produk->harga_asli = $hargaAsli;
+                $produk->nilai_diskon = $diskon;
+                $produk->harga_setelah_diskon = $hargaAsli - $diskon;
+
+                return $produk;
+            })
+            ->filter(function ($produk) {
+                return $produk->nilai_diskon > 0
+                    && $produk->harga_setelah_diskon < $produk->harga_asli;
+            })
+            ->values();
+
+        return view('pelanggan.detail-promo', [
+            'promosi' => $promosi,
+            'produkPromo' => $produkPromo,
+        ]);
+    }
+
 
     public function tentang()
     {
