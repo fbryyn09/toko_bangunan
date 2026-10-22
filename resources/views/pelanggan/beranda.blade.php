@@ -6,16 +6,16 @@
 
     <style>
         /* =========================================
-           BERANDA PELANGGAN
-        ========================================= */
+                   BERANDA PELANGGAN
+                ========================================= */
         .home-page {
             width: 100%;
             padding: 5px 0 40px;
         }
 
         /* =========================================
-           TOPBAR
-        ========================================= */
+                   TOPBAR
+                ========================================= */
         .home-topbar {
             width: 100%;
             display: flex;
@@ -49,16 +49,29 @@
 
         .home-search-icon {
             position: absolute;
-            left: 14px;
+            left: 12px;
             top: 50%;
             transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            border: none;
+            background: transparent;
+            color: #666;
             font-size: 16px;
-            pointer-events: none;
+            cursor: pointer;
         }
 
+        .home-search-input:focus {
+            border-color: #d6ad28;
+            box-shadow: 0 0 0 3px rgba(246, 195, 68, 0.15);
+        }
+
+
         /* =========================================
-           USER
-        ========================================= */
+                   USER
+                ========================================= */
         .home-user {
             display: flex;
             align-items: center;
@@ -95,8 +108,8 @@
         }
 
         /* =========================================
-           HERO
-        ========================================= */
+                   HERO
+                ========================================= */
         .home-hero {
             position: relative;
             width: 100%;
@@ -145,8 +158,8 @@
         }
 
         /* =========================================
-           SECTION HEADER
-        ========================================= */
+                   SECTION HEADER
+                ========================================= */
         .home-section-header {
             display: flex;
             align-items: center;
@@ -171,8 +184,8 @@
         }
 
         /* =========================================
-           KATEGORI
-        ========================================= */
+                   KATEGORI
+                ========================================= */
         .home-category-list {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -216,8 +229,8 @@
         }
 
         /* =========================================
-           KATEGORI KOSONG
-        ========================================= */
+                   KATEGORI KOSONG
+                ========================================= */
         .home-category-empty {
             grid-column: 1 / -1;
             text-align: center;
@@ -226,8 +239,8 @@
         }
 
         /* =========================================
-           PRODUK
-        ========================================= */
+                   PRODUK
+                ========================================= */
         .home-product-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -284,8 +297,8 @@
         }
 
         /* =========================================
-           STATUS
-        ========================================= */
+                   STATUS
+                ========================================= */
         .home-status {
             display: inline-block;
             padding: 3px 8px;
@@ -306,8 +319,8 @@
         }
 
         /* =========================================
-           BUTTON LIHAT PRODUK
-        ========================================= */
+                   BUTTON LIHAT PRODUK
+                ========================================= */
         .home-admin-button {
             display: block;
             width: 100%;
@@ -323,8 +336,8 @@
         }
 
         /* =========================================
-           RESPONSIVE
-        ========================================= */
+                   RESPONSIVE
+                ========================================= */
         @media (max-width: 1000px) {
 
             .home-category-list {
@@ -392,17 +405,20 @@
     ====================================== --}}
         <div class="home-topbar">
 
+
             <div class="home-search">
 
-                <div class="home-search-wrapper">
+                <form action="{{ route('pelanggan.produk') }}" method="GET" class="home-search-wrapper">
 
-                    <span class="home-search-icon">
-                        🔍
-                    </span>
+                    <input type="text" name="search" class="home-search-input"
+                        placeholder="Cari produk, kategori, atau nama barang" value="{{ request('search') }}"
+                        autocomplete="off">
 
-                    <input type="text" class="home-search-input" placeholder="Cari produk, kategori, atau nama barang">
+                    <button type="submit" class="home-search-icon" aria-label="Cari produk">
+                        <i class="bi bi-search"></i>
+                    </button>
 
-                </div>
+                </form>
 
             </div>
 
